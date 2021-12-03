@@ -64,3 +64,100 @@ At least three images are required. The more, the better the parameters estimati
 
 
 [Click here to see the demo as video.](https://drive.google.com/file/d/16kSAB0DtYn3Hs7U9yBGAok8P0g7BMp-G/view?usp=sharing)
+
+
+# dependency
+pip install opencv-python
+pip install opencv-python-contrib
+
+
+# [拍照说明](https://blog.csdn.net/j_shui/article/details/77262947)
+相机标定是进行视觉测量和定位的基础工作之一，标定参数准确与否直接关系到整个系统的精度，为此根据自己项目中的经验及参考相关的商用视觉软件的做法将相机标定过程中标定图片的获取过程中需要注意的问题总结如下：
+
+标定板拍摄的张数要能覆盖整个测量空间及整个测量视场，把相机图像分成四个象限（如图1所示），应保证拍摄的标定板图像均匀分布在四个象限中，且在每个象限中建议进行不同方向的两次倾斜，图2是一组推荐摆放方式图片。
+
+标定图片的数量通常在15~25张之间，图像数量太少，容易导致标定参数不准确。
+
+圆或者圆环特征的像素数尽量大于20，标定板的成像尺寸应大致占整幅画面的1/4
+
+用辅助光源对标定板进行打光，保证标定板的亮度足够且均匀
+
+标定板成像不能过爆，过爆会导致特征轮廓的提取的偏移，从而导致圆心提取不准确。
+
+标定板特征成像不能出现明显的离焦距，出现离焦时可通过调整调整标定板的距离、光圈的大小和像距（对于定焦镜头，通常说的调焦就是指调整像距）。
+
+标定过程，相机的光圈、焦距不能发生改变，改变需要重新标定。
+
+![图1 图像的四象限位](https://img-blog.csdn.net/20170816182848063?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQval9zaHVp/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+![图2 标定板合适摆放位置](https://img-blog.csdn.net/20170816182944722?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQval9zaHVp/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+- https://github.com/opencv/opencv/blob/master/samples/cpp/tutorial_code/calib3d/camera_calibration/camera_calibration.cpp)
+
+
+## 图片矫正说明文档
+
+
+
+### 图片获取
+
+```bash
+# step01 安装玄武拍照
+F:\xuanwu\tools\aiot-release-V20210331-202106041540.apk
+
+adb connect id_Address
+adb devices # checking the connecting
+adb install F:\xuanwu\tools\aiot-release-V20210331-202106041540.apk
+
+# step02 拍照
+
+# step03 pull the images
+
+E:\data\camera_calibration
+```
+
+
+
+### 矫正参数以及新增代码
+
+```bash
+   data: [ 6.3679404207355321e+02, 0., 6.3701922316458365e+02, 0.,
+       6.4220781758881571e+02, 3.1267232337362935e+02, 0., 0., 1. ]
+D: !!opencv-matrix
+   rows: 1
+   cols: 5
+   dt: d
+   data: [ -3.6721049616656565e-01, 1.1686644036526267e-01,
+       1.3678611194601928e-03, 1.3781249474976913e-03,
+       -1.5966288380859801e-02 ]
+```
+
+新增代码:缩放原图到90%，在周边padding 到原图大小
+
+```bash
+Mat src, dst;
+int top, bottom, left, right;
+int borderType = BORDER_CONSTANT;
+cv::Mat roi_dest;
+cv::resize(roi, roi_dest, cv::Size(), 0.9 , 0.9 );
+
+top = (int) (0.05*roi.rows); bottom = top;
+left = (int) (0.05*roi.cols); right = left;
+
+Scalar value(255,255,255);
+copyMakeBorder( roi_dest, dst, top, bottom, left, right, borderType, value );
+```
+
+
+
+
+## reference
+- [world coor and camera coor](https://www.cnblogs.com/mikewolf2002/p/5746667.html)
+- [张正友相机标定Opencv实现以及标定流程&&标定结果评价&&图像矫正流程解析](https://blog.csdn.net/dcrmg/article/details/52939318)
+- [https://medium.com/vacatronics/3-ways-to-calibrate-your-camera-using-opencv-and-python-395528a51615](https://medium.com/vacatronics/3-ways-to-calibrate-your-camera-using-opencv-and-python-395528a51615)
+- [code referece](E:\gitlab\cpp\test\camera_calibrateion.cpp) and [opencv offical camera calibration](
+- [undistor](https://aishack.in/tutorials/calibrating-undistorting-opencv-oh-yeah/) and [c++ code](https://github.com/Thomio-Watanabe/undistort_images/blob/master/src/main.cpp)
+## key word
+
+摄像头标定 camera calibration
+
