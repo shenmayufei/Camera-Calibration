@@ -65,12 +65,12 @@ At least three images are required. The more, the better the parameters estimati
 
 [Click here to see the demo as video.](https://drive.google.com/file/d/16kSAB0DtYn3Hs7U9yBGAok8P0g7BMp-G/view?usp=sharing)
 
+## dependency
 
-# dependency
 pip install opencv-python
 pip install opencv-python-contrib
 
-## [拍照说明](https://blog.csdn.net/j_shui/article/details/77262947)
+## [photo Specification](https://blog.csdn.net/j_shui/article/details/77262947)
 
 相机标定是进行视觉测量和定位的基础工作之一，标定参数准确与否直接关系到整个系统的精度，为此根据自己项目中的经验及参考相关的商用视觉软件的做法将相机标定过程中标定图片的获取过程中需要注意的问题总结如下：
 
@@ -94,7 +94,7 @@ pip install opencv-python-contrib
 
 - https://github.com/opencv/opencv/blob/master/samples/cpp/tutorial_code/calib3d/camera_calibration/camera_calibration.cpp)
 
-### 图片获取
+## getImage
 
 ```bash
 # step01 安装vedio拍照
@@ -119,9 +119,7 @@ python calibrate_chessboard.py #get calibration_chessboard.yml
 python undist.py # load the camera calibration_chessboard.yml and distort
 ```
 
-
-
-### calibration parameter and add code
+## calibration parameter and add code
 
 ```bash
 # note SQUARE_SIZE 指的是正方向的大小。
