@@ -70,8 +70,8 @@ At least three images are required. The more, the better the parameters estimati
 pip install opencv-python
 pip install opencv-python-contrib
 
+## [拍照说明](https://blog.csdn.net/j_shui/article/details/77262947)
 
-# [拍照说明](https://blog.csdn.net/j_shui/article/details/77262947)
 相机标定是进行视觉测量和定位的基础工作之一，标定参数准确与否直接关系到整个系统的精度，为此根据自己项目中的经验及参考相关的商用视觉软件的做法将相机标定过程中标定图片的获取过程中需要注意的问题总结如下：
 
 标定板拍摄的张数要能覆盖整个测量空间及整个测量视场，把相机图像分成四个象限（如图1所示），应保证拍摄的标定板图像均匀分布在四个象限中，且在每个象限中建议进行不同方向的两次倾斜，图2是一组推荐摆放方式图片。
@@ -94,34 +94,38 @@ pip install opencv-python-contrib
 
 - https://github.com/opencv/opencv/blob/master/samples/cpp/tutorial_code/calib3d/camera_calibration/camera_calibration.cpp)
 
-
-## 图片矫正说明文档
-
-
-
 ### 图片获取
 
 ```bash
-# step01 安装玄武拍照
+# step01 安装vedio拍照
 F:\xuanwu\tools\aiot-release-V20210331-202106041540.apk
-
 adb connect id_Address
 adb devices # checking the connecting
 adb install F:\xuanwu\tools\aiot-release-V20210331-202106041540.apk
 
 # step02 拍照
-
 # step03 pull the images
-
 E:\data\camera_calibration
+```
+
+## usage
+
+```bash
+# you need change image_dir /image fomat/棋盘对应的检测列（WIDTH）/棋盘对应检测的行（HEIGHT）/棋盘方块对应的大小（SQUARE_SIZE， 长或宽）。
+# step01 
+python calibrate_chessboard.py #get calibration_chessboard.yml
+
+# step02 undist
+python undist.py # load the camera calibration_chessboard.yml and distort
 ```
 
 
 
-### 矫正参数以及新增代码
+### calibration parameter and add code
 
 ```bash
-   data: [ 6.3679404207355321e+02, 0., 6.3701922316458365e+02, 0.,
+# note SQUARE_SIZE 指的是正方向的大小。
+data: [ 6.3679404207355321e+02, 0., 6.3701922316458365e+02, 0.,
        6.4220781758881571e+02, 3.1267232337362935e+02, 0., 0., 1. ]
 D: !!opencv-matrix
    rows: 1
@@ -150,14 +154,20 @@ copyMakeBorder( roi_dest, dst, top, bottom, left, right, borderType, value );
 
 
 
-
 ## reference
+
+- [code referece](E:\gitlab\cpp\test\camera_calibrateion.cpp) and [opencv offical camera calibration](https://opencv24-python-tutorials.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_calibration/py_calibration.html）
+
 - [world coor and camera coor](https://www.cnblogs.com/mikewolf2002/p/5746667.html)
 - [张正友相机标定Opencv实现以及标定流程&&标定结果评价&&图像矫正流程解析](https://blog.csdn.net/dcrmg/article/details/52939318)
 - [https://medium.com/vacatronics/3-ways-to-calibrate-your-camera-using-opencv-and-python-395528a51615](https://medium.com/vacatronics/3-ways-to-calibrate-your-camera-using-opencv-and-python-395528a51615)
-- [code referece](E:\gitlab\cpp\test\camera_calibrateion.cpp) and [opencv offical camera calibration](
 - [undistor](https://aishack.in/tutorials/calibrating-undistorting-opencv-oh-yeah/) and [c++ code](https://github.com/Thomio-Watanabe/undistort_images/blob/master/src/main.cpp)
 ## key word
-
 摄像头标定 camera calibration
+
+
+
+
+
+#   
 

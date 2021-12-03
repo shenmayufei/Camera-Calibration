@@ -4,12 +4,12 @@ from utils import load_coefficients, save_coefficients
 # Parameters
 # IMAGES_DIR = 'E:\data\camera_calibration\images\images'  #for test
 IMAGES_DIR = 'E:\data\camera_calibration\chess_photo'  # for xiaoxun camera
-# IMAGES_DIR = 'E:\data\camera_calibration\chess_all'  # for xiaoxun camera
+# IMAGES_DIR = 'E:\data\camera_calibration\chess_all'  # for  xiaoxun camera
 IMAGES_FORMAT = '.jpg'
-SQUARE_SIZE = 2.5  #square_size: size, in centimeter, of each square of the real chessboard. Use a ruler and try to be as accurate as possible.
+SQUARE_SIZE = 2.5  #square_size: size(square size, because is square,only kown the height or width), in centimeter, of each square of the real chessboard. Use a ruler and try to be as accurate as possible.
 # SQUARE_SIZE = 1.6  #square_size: size, in centimeter, of each square of the real chessboard. Use a ruler and try to be as accurate as possible.
-WIDTH = 6
-HEIGHT = 9
+WIDTH = 6 # cols number
+HEIGHT = 9 # rows number
 
 # Calibrate 
 ret, mtx, dist, rvecs, tvecs = calibrate_chessboard(
