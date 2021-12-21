@@ -40,7 +40,7 @@ def calibrate_chessboard(dir_path, image_format, square_size, width, height):
         # If found, add object points, image points (after refining them)
         if ret:
             objpoints.append(objp)
-            print("the image nums is {0}", num)
+            print("the image nums is {}, image name is {} \n".format(num, image_name))
             corners2 = cv2.cornerSubPix(gray, corners, (11, 11), (-1, -1), criteria)
             cv2.drawChessboardCorners(img, (width, height), corners2, ret)
             # cv2.imshow('FoundCorners', img)
