@@ -60,13 +60,15 @@ E:\data\camera_calibration
 
 ## usage
 ```bash
-# you need change image_dir /image fomat/棋盘对应的检测列（WIDTH）/棋盘对应检测的行（HEIGHT）/棋盘方块对应的大小（SQUARE_SIZE， 长或宽）。
-# step01 
-python calibrate_chessboard.py #get calibration_chessboard.yml
+# you need change image_dir /image_format/棋盘对应的检测列（col_nums，9）/棋盘对应检测的行（row_nums,6）,如下图/棋盘方块对应的大小（SQUARE_SIZE， 黑色正方形的长或宽, centimeter）。
+# step01 get calibration_chessboard.yml
+python calibrate_chessboard.py --image_dir "E:\data\camera_calibration\chess_photo" --col_nums 9 --row_nums 9 --square_size 2.5 --image_format '.jpg'
 
 # step02 undist
-python undist.py # load the camera calibration_chessboard.yml and distort
+python undist.py --image_dir "E:\data\camera_calibration\test_on_line2" --parameter_file "calibration_chessboard.yml" # load the camera calibration_chessboard.yml and distort
+
 ```
+![chess image](chess_for_print.jpg)
 
 ## calibration parameter and add code
 
